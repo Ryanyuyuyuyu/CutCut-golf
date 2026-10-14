@@ -1,59 +1,510 @@
 <!doctype html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="CutCut Golf 隐私政策与使用支持。">
-    <title>CutCut Golf · 隐私与支持</title>
-    <link rel="stylesheet" href="assets/site.css">
-  </head>
-  <body>
-    <header class="site-header">
-      <nav class="site-nav" aria-label="主导航">
-        <a class="brand" href="./">
-          <span class="brand-mark" aria-hidden="true">C</span>
-          <span>CutCut Golf</span>
-        </a>
-        <div class="nav-links">
-          <a href="privacy/">隐私政策</a>
-          <a href="support/">使用支持</a>
-        </div>
+<html lang="zh-CN" data-lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>CutCut Golf · 多挥几杆，少剪一点 | Swing more. Edit less.</title>
+  <meta name="description" content="CutCut Golf 帮你在 iPhone 上把长时间的高尔夫练习录像，整理成可回看、保存和分享的挥杆片段。本地处理，无需账号，一次购买永久解锁。">
+  <meta name="theme-color" content="#07090b">
+  <meta name="color-scheme" content="dark">
+  <meta name="apple-itunes-app" content="app-id=6807457043">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="CutCut Golf · Swing more. Edit less.">
+  <meta property="og:description" content="把长时间的高尔夫练习录像，变成你真正会回看的几杆。Turn long practice recordings into swing clips on iPhone.">
+  <meta property="og:image" content="https://ryanyuyuyuyu.github.io/CutCut-golf/assets/img/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@CutCut_Golf">
+  <link rel="icon" type="image/png" href="assets/img/favicon-64.png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="preload" as="image" href="assets/frames/m/s01.jpg" media="(max-width: 760px)">
+  <link rel="preload" as="image" href="assets/frames/s01.jpg" media="(min-width: 761px)">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <script>
+    (function () {
+      var q = new URLSearchParams(location.search).get("lang");
+      var s = null;
+      try { s = localStorage.getItem("cutcut-lang"); } catch (e) {}
+      var l = q || s || ((navigator.language || "zh").toLowerCase().indexOf("zh") === 0 ? "zh" : "en");
+      if (l !== "zh" && l !== "en") l = "zh";
+      document.documentElement.setAttribute("data-lang", l);
+      document.documentElement.lang = l === "zh" ? "zh-CN" : "en";
+      document.documentElement.classList.add("js");
+    })();
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "CutCut Golf",
+    "operatingSystem": "iOS 17.0+",
+    "applicationCategory": "SportsApplication",
+    "description": "Turn long golf practice recordings into swing clips on iPhone. On-device processing, no sign-up.",
+    "downloadUrl": "https://apps.apple.com/app/id6807457043",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main"><span data-l="zh">跳到正文</span><span data-l="en">Skip to content</span></a>
+
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="CutCut Golf">
+        <img src="assets/img/icon-256.jpg" alt="" width="32" height="32">
+        <span>CutCut Golf</span>
+      </a>
+      <nav class="nav-links" aria-label="Main">
+        <a href="#try"><span data-l="zh">试一试</span><span data-l="en">Try it</span></a>
+        <a href="#how"><span data-l="zh">怎么用</span><span data-l="en">How it works</span></a>
+        <a href="#privacy"><span data-l="zh">隐私</span><span data-l="en">Privacy</span></a>
+        <a href="#pricing"><span data-l="zh">价格</span><span data-l="en">Pricing</span></a>
+        <a href="#faq">FAQ</a>
       </nav>
-      <div class="hero">
-        <p class="eyebrow">Local-first golf video tools</p>
-        <h1>你的挥杆视频，始终由你掌控。</h1>
-        <p>
-          CutCut Golf 无需在线登录，视频分析与剪辑在 iPhone 本地完成。
-          在这里查看隐私政策、常见问题和官方支持渠道。
-        </p>
-      </div>
-    </header>
-
-    <main class="content">
-      <div class="notice">
-        <strong>本地处理</strong>
-        CutCut 不运营视频上传或远程分析服务。购买与恢复购买由 Apple App Store 处理。
-      </div>
-
-      <div class="cards">
-        <a class="card" href="privacy/">
-          <span class="card-icon" aria-hidden="true">✓</span>
-          <h2>隐私政策</h2>
-          <p>了解视频、临时文件、本地状态、购买验证和系统分享如何处理。</p>
-        </a>
-        <a class="card" href="support/">
-          <span class="card-icon" aria-hidden="true">?</span>
-          <h2>使用支持</h2>
-          <p>查看导入、分析、保存、购买与恢复购买的常见问题和反馈入口。</p>
+      <div class="nav-actions">
+        <button class="lang-toggle" type="button" id="langToggle" aria-label="切换语言 / Switch language">
+          <span class="lang-opt" data-v="zh">中</span><span class="lang-opt" data-v="en">EN</span>
+        </button>
+        <a class="btn btn-lime btn-sm" href="https://apps.apple.com/app/id6807457043" target="_blank" rel="noopener">
+          <span data-l="zh">下载</span><span data-l="en">Get the app</span>
         </a>
       </div>
-    </main>
+    </div>
+  </header>
 
-    <footer class="site-footer">
-      <div class="site-footer-inner">
-        <span>© 2026 CutCut Golf</span>
-        <span>无需 CutCut 账号 · 视频仅在设备本地处理</span>
+  <main id="main">
+    <!-- HERO: scroll-scrubbed swing -->
+    <section class="hero" id="top" aria-label="CutCut Golf">
+      <div class="hero-sticky">
+        <canvas class="hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
+        <img class="hero-poster" id="heroPoster" src="assets/frames/m/s01.jpg" alt="" aria-hidden="true">
+        <div class="hero-shade" aria-hidden="true"></div>
+        <div class="hero-slash" id="heroSlash" aria-hidden="true"></div>
+        <span class="ai-tag"><span data-l="zh">AI 生成画面</span><span data-l="en">AI-generated footage</span></span>
+
+        <div class="hero-copy">
+          <p class="eyebrow">CutCut Golf · iPhone</p>
+          <h1 class="hero-title">
+            <span class="line l1"><span data-l="zh">多挥几杆，</span><span data-l="en">Swing more.</span></span>
+            <span class="line l2" id="heroLine2"><span data-l="zh">少剪一点。</span><span data-l="en">Edit less.</span></span>
+          </h1>
+          <p class="hero-sub">
+            <span data-l="zh">把一整段练习录像，整理成你真正会回看的那几杆。<br>根据击球声音找到候选，由你决定留下什么。</span>
+            <span data-l="en">Turn a whole practice recording into the few swings you’ll actually rewatch. <br>Impact sound finds the candidates — you decide what stays.</span>
+          </p>
+          <div class="hero-cta">
+            <a class="btn btn-store" href="https://apps.apple.com/app/id6807457043" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.1-.8 1.5 0 1.9.8 3.2.8 1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8-.1 0-2.5-1-2.5-3.9zM14 5.5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.6 2.8-1.4z"/></svg>
+              <span class="store-text"><small><span data-l="zh">前往</span><span data-l="en">Download on the</span></small><b>App Store</b></span>
+            </a>
+            <a class="btn btn-ghost" href="#try"><span data-l="zh">先在网页上试试</span><span data-l="en">Try it in your browser</span> <span aria-hidden="true">↓</span></a>
+          </div>
+          <ul class="hero-facts">
+            <li><span data-l="zh">本地处理</span><span data-l="en">On-device</span></li>
+            <li><span data-l="zh">无需注册</span><span data-l="en">No sign-up</span></li>
+            <li><span data-l="zh">一次购买，无订阅</span><span data-l="en">One-time purchase</span></li>
+          </ul>
+        </div>
+        <div class="scroll-cue" aria-hidden="true"><span></span></div>
       </div>
-    </footer>
-  </body>
+    </section>
+
+    <!-- PROBLEM: long recording timeline -->
+    <section class="story" id="problem">
+      <div class="story-sticky">
+        <div class="wrap">
+          <div class="story-copy">
+            <p class="eyebrow" id="storyEyebrow">01 · <span data-l="zh">问题</span><span data-l="en">The problem</span></p>
+            <h2 class="story-title">
+              <span class="st st-0"><span data-l="zh">录了 45 分钟，<br>想看的只有几秒。</span><span data-l="en">45 minutes recorded.<br>A few seconds worth watching.</span></span>
+              <span class="st st-1"><span data-l="zh">每一次击球，<br>都有声音。</span><span data-l="en">Every strike<br>makes a sound.</span></span>
+              <span class="st st-2"><span data-l="zh">只留下<br>你想看的那几杆。</span><span data-l="en">Keep only<br>the swings you want.</span></span>
+            </h2>
+            <p class="story-sub">
+              <span class="st st-0"><span data-l="zh">摆球、走动、等待……真正的挥杆被埋在长录像里，回看时只能来回拖进度条。</span><span data-l="en">Teeing up, walking, waiting… the real swings are buried. Rewatching means endless scrubbing.</span></span>
+              <span class="st st-1"><span data-l="zh">CutCut 在 iPhone 本地读取原始击球声音，把可能的击球时刻标成候选。</span><span data-l="en">CutCut reads the original impact audio on your iPhone and marks likely strikes as candidates.</span></span>
+              <span class="st st-2"><span data-l="zh">你逐段确认、裁剪，合并成一条，或分别保存。机器负责找，你来决定。</span><span data-l="en">You review, trim, then merge or save them separately. It finds — you decide.</span></span>
+            </p>
+          </div>
+          <div class="timeline" id="timeline" aria-hidden="true">
+            <div class="tl-head"><span class="tl-file">IMG_2048.MOV</span><span class="tl-dur">45:12</span></div>
+            <div class="tl-bars" id="tlBars"></div>
+            <div class="tl-clips" id="tlClips"></div>
+            <div class="tl-foot">
+              <span class="tl-legend"><i class="dot dot-wait"></i><span data-l="zh">等待</span><span data-l="en">Waiting</span></span>
+              <span class="tl-legend"><i class="dot dot-hit"></i><span data-l="zh">击球候选</span><span data-l="en">Impact candidate</span></span>
+              <span class="tl-note"><span data-l="zh">示意图</span><span data-l="en">Illustration</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRY: playable simulator -->
+    <section class="section try" id="try">
+      <div class="wrap">
+        <header class="sec-head">
+          <p class="eyebrow">02 · <span data-l="zh">亲手试一试</span><span data-l="en">Try it yourself</span></p>
+          <h2><span data-l="zh">在这里剪一次。</span><span data-l="en">Make your first cut, right here.</span></h2>
+          <p class="sec-sub"><span data-l="zh">下面是一段 24 秒的示例练习录像，里面有 3 次挥杆。拖动边界，点保留或舍弃，再生成成片。规则和 App 里一样。</span><span data-l="en">A 24-second sample practice recording with three swings. Drag the edges, keep or discard, then finalize — the same rules as the app.</span></p>
+        </header>
+
+        <div class="sim" id="sim">
+          <div class="sim-device">
+            <div class="sim-screen">
+              <div class="sim-top">
+                <img src="assets/img/icon-256.jpg" alt="" width="28" height="28">
+                <div class="sim-steps" id="simSteps" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                <button class="sim-sound" id="simSound" type="button" aria-pressed="false">
+                  <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><path class="wave" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  <span data-l="zh">听击球声</span><span data-l="en">Sound</span>
+                </button>
+              </div>
+              <div class="sim-stage-label" id="simStageLabel"></div>
+              <div class="sim-video">
+                <video id="simVideo" src="assets/video/practice.mp4" poster="assets/img/practice-poster.jpg" muted playsinline preload="metadata"></video>
+                <div class="sim-clock" id="simClock">00:00.0</div>
+                <span class="sim-ai"><span data-l="zh">AI 生成画面</span><span data-l="en">AI-generated</span></span>
+              </div>
+
+              <!-- review panel -->
+              <div class="sim-panel" id="panelReview">
+                <div class="rv-head">
+                  <span class="rv-time"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2v5M12 17v5M2 12h5M17 12h5" stroke="currentColor" stroke-width="2"/></svg><b id="rvImpact">00:04.0</b></span>
+                  <span class="rv-count" id="rvCount">1 / 3</span>
+                  <span class="pill" id="rvStatus" data-s="pending"></span>
+                </div>
+                <div class="trim" id="trim">
+                  <div class="trim-track"></div>
+                  <div class="trim-sel" id="trimSel"></div>
+                  <div class="trim-play" id="trimPlay"></div>
+                  <div class="trim-impact" id="trimImpact"></div>
+                  <button class="trim-h trim-h-start" id="hStart" type="button" role="slider" aria-label="Start"></button>
+                  <button class="trim-h trim-h-end" id="hEnd" type="button" role="slider" aria-label="End"></button>
+                </div>
+                <div class="rv-times"><span id="rvStart">00:01.0</span><span id="rvDur">6.0 sec</span><span id="rvEnd">00:07.0</span></div>
+                <div class="rv-actions">
+                  <button class="ib" id="bPrev" type="button" aria-label="Previous">‹</button>
+                  <button class="ab ab-discard" id="bDiscard" type="button">✕ <span data-l="zh">舍弃</span><span data-l="en">Discard</span></button>
+                  <button class="ab" id="bReplay" type="button">↻ <span data-l="zh">重播</span><span data-l="en">Replay</span></button>
+                  <button class="ab ab-keep" id="bKeep" type="button">✓ <span data-l="zh">保留</span><span data-l="en">Keep</span></button>
+                  <button class="ib" id="bNext" type="button" aria-label="Next">›</button>
+                </div>
+                <div class="rv-chips" id="rvChips"></div>
+                <button class="continue" id="bContinue" type="button"></button>
+              </div>
+
+              <!-- output panel -->
+              <div class="sim-panel" id="panelOutput" hidden>
+                <div class="out-head"><span class="ok">✓ <span data-l="zh">准备生成</span><span data-l="en">Ready to finalize</span></span><button class="link-btn" id="bEdit" type="button"><span data-l="zh">修改片段</span><span data-l="en">Edit Clips</span></button></div>
+                <div class="seg" role="radiogroup" aria-label="Output">
+                  <button type="button" role="radio" aria-checked="true" data-mode="merge" class="seg-b"><span data-l="zh">合并成片</span><span data-l="en">Merge Clips</span></button>
+                  <button type="button" role="radio" aria-checked="false" data-mode="separate" class="seg-b"><span data-l="zh">分别生成</span><span data-l="en">Separate Clips</span></button>
+                </div>
+                <p class="out-desc" id="outDesc"></p>
+                <button class="btn btn-lime btn-block" id="bFinalize" type="button">✦ <span data-l="zh">生成成片</span><span data-l="en">Finalize Clips</span></button>
+                <div class="progress" id="progress" hidden><i></i></div>
+              </div>
+
+              <!-- ready panel -->
+              <div class="sim-panel" id="panelReady" hidden>
+                <div class="ready-head" id="readyHead">
+                  <span class="ring" id="readyRing"></span>
+                  <div><b id="readyTitle"></b><small id="readySub"></small></div>
+                </div>
+                <div class="ready-files" id="readyFiles"></div>
+                <button class="btn btn-lime btn-block" id="bSave" type="button"></button>
+                <div class="ready-row">
+                  <button class="ab" id="bPlayResult" type="button">▶ <span data-l="zh">播放成片</span><span data-l="en">Play result</span></button>
+                  <button class="ab" id="bRestart" type="button">↺ <span data-l="zh">重新开始</span><span data-l="en">Start over</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <aside class="sim-side">
+            <div class="toast" id="toast" role="status" aria-live="polite"></div>
+            <h3><span data-l="zh">四条规则，试过就懂</span><span data-l="en">Four rules you’ll discover</span></h3>
+            <ol class="rules" id="rules">
+              <li data-rule="trim"><i></i><div><b><span data-l="zh">裁剪 ≠ 保留</span><span data-l="en">Trimming ≠ keeping</span></b><span data-l="zh">拖完边界，这一段仍是「待定」。</span><span data-l="en">After you trim, the clip is still Pending.</span></div></li>
+              <li data-rule="next"><i></i><div><b><span data-l="zh">切换只是查看</span><span data-l="en">Next just navigates</span></b><span data-l="zh">点 › 看下一段，不会替你保留。</span><span data-l="en">Moving on never keeps a clip for you.</span></div></li>
+              <li data-rule="kept"><i></i><div><b><span data-l="zh">只有保留的才进成片</span><span data-l="en">Only kept clips are exported</span></b><span data-l="zh">没审的候选不会被偷偷加进去。</span><span data-l="en">Unreviewed candidates never sneak in.</span></div></li>
+              <li data-rule="save"><i></i><div><b><span data-l="zh">生成后还要保存</span><span data-l="en">Finalize, then save</span></b><span data-l="zh">「准备保存」不等于「已存入相册」。</span><span data-l="en">Ready to Save is not Saved to Photos.</span></div></li>
+            </ol>
+            <p class="fine"><span data-l="zh">这是网页模拟演示，界面经过简化，不会保存任何文件。示例视频由 App 内置引导中的 AI 生成挥杆剪辑而成（并非真人录像），保留了原片的击球声。</span><span data-l="en">A simplified web simulation; nothing is saved. The sample is cut from the AI-generated swing in the app’s Quick Guide (not real footage), with its original impact sound.</span></p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW: sticky phone with real screenshots -->
+    <section class="section how" id="how">
+      <div class="wrap">
+        <header class="sec-head">
+          <p class="eyebrow">03 · <span data-l="zh">怎么用</span><span data-l="en">How it works</span></p>
+          <h2><span data-l="zh">六步，从长录像到成片。</span><span data-l="en">Six steps, from long take to final clip.</span></h2>
+        </header>
+        <div class="how-grid">
+          <div class="how-steps">
+            <article class="step" data-shot="import">
+              <span class="step-n">1</span>
+              <h3><span data-l="zh">导入录像</span><span data-l="en">Import</span></h3>
+              <p><span data-l="zh">从相册或文件选择视频。一个项目可放 1–9 段素材，累计不超过 2 小时。</span><span data-l="en">Pick videos from Photos or Files. Up to 9 videos, 2 hours total per project.</span></p>
+              <img class="step-shot" src="assets/img/ui-import.jpg" alt="Import Video screen" loading="lazy" width="600" height="1304">
+            </article>
+            <article class="step" data-shot="loaded">
+              <span class="step-n">2</span>
+              <h3><span data-l="zh">分析挥杆</span><span data-l="en">Analyze</span></h3>
+              <p><span data-l="zh">选择保守、标准或灵敏三档，设定击球前后各保留几秒（0–30 秒），然后在本地分析击球声音。</span><span data-l="en">Choose Conservative, Standard or Sensitive, set how much to keep before and after impact (0–30 s), and analyze on-device.</span></p>
+              <img class="step-shot" src="assets/img/ui-loaded.jpg" alt="Analyze Swings screen" loading="lazy" width="600" height="1304">
+            </article>
+            <article class="step" data-shot="review-before">
+              <span class="step-n">3</span>
+              <h3><span data-l="zh">逐段审片</span><span data-l="en">Review</span></h3>
+              <p><span data-l="zh">每个候选默认待定。看一眼，点保留或舍弃，自动跳到下一段。</span><span data-l="en">Every candidate starts as Pending. Watch it, tap Keep or Discard, and move to the next.</span></p>
+              <img class="step-shot" src="assets/img/ui-review-before.jpg" alt="Review Clips screen, Pending" loading="lazy" width="600" height="1304">
+            </article>
+            <article class="step" data-shot="trimmed">
+              <span class="step-n">4</span>
+              <h3><span data-l="zh">自由裁剪</span><span data-l="en">Trim</span></h3>
+              <p><span data-l="zh">拖动起止边界：起点 00:01.0 → 00:02.0，时长 6.0 → 5.0 秒。在边缘按住可以继续延伸。</span><span data-l="en">Drag either edge: start 00:01.0 → 00:02.0, length 6.0 → 5.0 sec. Hold at an edge to keep extending.</span></p>
+              <img class="step-shot" src="assets/img/ui-trimmed.jpg" alt="Trimmed clip, still Pending" loading="lazy" width="600" height="1304">
+            </article>
+            <article class="step" data-shot="output-options">
+              <span class="step-n">5</span>
+              <h3><span data-l="zh">选择输出</span><span data-l="en">Choose output</span></h3>
+              <p><span data-l="zh">合并成一条精选，或每段单独生成，方便发给教练。生成前可以连续预览已保留的片段。</span><span data-l="en">Merge into one highlight, or export each clip on its own — handy for your coach. Preview kept clips back to back first.</span></p>
+              <img class="step-shot" src="assets/img/ui-output-options.jpg" alt="Merge or Separate Clips" loading="lazy" width="600" height="1304">
+            </article>
+            <article class="step" data-shot="saved">
+              <span class="step-n">6</span>
+              <h3><span data-l="zh">保存或分享</span><span data-l="en">Save or share</span></h3>
+              <p><span data-l="zh">生成后显示「准备保存」，点「保存到相册」才会写入照片；也可以用系统分享发出去。原视频不会被改动。</span><span data-l="en">After finalizing you’re Ready to Save; tap Save to Photos to write it, or Share. Your original video is never altered.</span></p>
+              <img class="step-shot" src="assets/img/ui-saved.jpg" alt="Saved to Photos" loading="lazy" width="600" height="1304">
+            </article>
+          </div>
+          <div class="how-phone" aria-hidden="true">
+            <div class="phone">
+              <div class="phone-screen" id="howScreen">
+                <img src="assets/img/ui-import.jpg" alt="" data-k="import" class="on">
+                <img src="assets/img/ui-loaded.jpg" alt="" data-k="loaded" loading="lazy">
+                <img src="assets/img/ui-review-before.jpg" alt="" data-k="review-before" loading="lazy">
+                <img src="assets/img/ui-trimmed.jpg" alt="" data-k="trimmed" loading="lazy">
+                <img src="assets/img/ui-output-options.jpg" alt="" data-k="output-options" loading="lazy">
+                <img src="assets/img/ui-saved.jpg" alt="" data-k="saved" loading="lazy">
+              </div>
+            </div>
+            <p class="cap"><span data-l="zh">真实 App 界面（英文版）· 画面中的挥杆为插画示例</span><span data-l="en">Real app screens · the swing shown is an illustrated sample</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES bento -->
+    <section class="section features" id="features">
+      <div class="wrap">
+        <header class="sec-head">
+          <p class="eyebrow">04 · <span data-l="zh">功能</span><span data-l="en">Features</span></p>
+          <h2><span data-l="zh">只做好一件事。</span><span data-l="en">Built to do one thing well.</span></h2>
+        </header>
+        <div class="bento">
+          <article class="card c-wide c-sound">
+            <div class="wave-viz" aria-hidden="true"></div>
+            <h3><span data-l="zh">听声音，找挥杆</span><span data-l="en">Finds swings by sound</span></h3>
+            <p><span data-l="zh">用录像里的原始击球声音定位候选时刻，不需要下载模型，也不需要联网。</span><span data-l="en">Uses the recording’s original impact audio to locate candidates — no model downloads, no connection needed.</span></p>
+          </article>
+          <article class="card">
+            <div class="mini-seg" aria-hidden="true"><span>Conservative</span><span class="on">Standard</span><span>Sensitive</span></div>
+            <h3><span data-l="zh">三档灵敏度</span><span data-l="en">Three sensitivities</span></h3>
+            <p><span data-l="zh">练习场旁边很吵？调成保守。击球声很轻？调成灵敏。</span><span data-l="en">Noisy range? Go Conservative. Soft strikes? Go Sensitive.</span></p>
+          </article>
+          <article class="card">
+            <div class="big-num" aria-hidden="true">0–30<small>s</small></div>
+            <h3><span data-l="zh">前后时长随你定</span><span data-l="en">Your window</span></h3>
+            <p><span data-l="zh">击球前、击球后分别设置，保留完整的上杆与收杆。</span><span data-l="en">Set before and after impact separately to keep the full backswing and finish.</span></p>
+          </article>
+          <article class="card">
+            <div class="mini-trim" aria-hidden="true"><i></i><b></b><i></i></div>
+            <h3><span data-l="zh">每段单独裁剪</span><span data-l="en">Trim every clip</span></h3>
+            <p><span data-l="zh">起点、终点都能拖，可以越过击球标记，重播确认。</span><span data-l="en">Drag both ends, past the impact marker if you like, then replay to check.</span></p>
+          </article>
+          <article class="card">
+            <div class="mini-play" aria-hidden="true">▶</div>
+            <h3><span data-l="zh">连续预览</span><span data-l="en">Back-to-back preview</span></h3>
+            <p><span data-l="zh">生成前按原顺序连播已保留片段，选错了随时回去改。</span><span data-l="en">Watch kept clips in order before you export, and go back anytime.</span></p>
+          </article>
+          <article class="card c-wide c-out">
+            <div class="out-viz" aria-hidden="true"><span class="ov-a"></span><span class="ov-b"></span><span class="ov-c"></span></div>
+            <h3><span data-l="zh">合并，或分别</span><span data-l="en">Merge or separate</span></h3>
+            <p><span data-l="zh">一条练习精选拿来回看，或者一杆一个文件发给教练。导出 MP4，保留原声。</span><span data-l="en">One highlight to rewatch, or one file per swing for your coach. MP4 with original audio.</span></p>
+          </article>
+          <article class="card">
+            <div class="big-num" aria-hidden="true">9<small>×</small></div>
+            <h3><span data-l="zh">多段素材同一项目</span><span data-l="en">Many videos, one project</span></h3>
+            <p><span data-l="zh">分几次录的练习，放在一起整理：最多 9 段，合计 2 小时。</span><span data-l="en">Recorded in parts? Bring them together: up to 9 videos, 2 hours total.</span></p>
+          </article>
+          <article class="card">
+            <div class="big-num" aria-hidden="true">中<small>/</small>EN</div>
+            <h3><span data-l="zh">中英文界面</span><span data-l="en">Chinese &amp; English</span></h3>
+            <p><span data-l="zh">顶部一键切换，下次打开仍会记住。</span><span data-l="en">Switch from the top bar; your choice is remembered.</span></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRIVACY -->
+    <section class="section privacy" id="privacy">
+      <div class="wrap privacy-grid">
+        <div>
+          <p class="eyebrow">05 · <span data-l="zh">隐私</span><span data-l="en">Privacy</span></p>
+          <h2 class="giant"><span data-l="zh">你的挥杆，<br>留在你的 iPhone 里。</span><span data-l="en">Your swings<br>stay on your iPhone.</span></h2>
+        </div>
+        <ul class="priv-list">
+          <li><b><span data-l="zh">本地分析与剪辑</span><span data-l="en">Analyzed and edited locally</span></b><span data-l="zh">分析、审片和生成都在手机上完成，原始素材不需要上传给开发者。</span><span data-l="en">Analysis, review and export run on the phone. Your footage never needs to be uploaded.</span></li>
+          <li><b><span data-l="zh">无需 CutCut 账号</span><span data-l="en">No CutCut account</span></b><span data-l="zh">打开就能用，不用注册，也不用登录。</span><span data-l="en">Open it and start. Nothing to sign up for.</span></li>
+          <li><b><span data-l="zh">没有广告和追踪</span><span data-l="en">No ads, no tracking SDKs</span></b><span data-l="zh">不接入广告或第三方行为分析 SDK。</span><span data-l="en">No advertising or third-party behavioral analytics.</span></li>
+          <li><b><span data-l="zh">原视频不会被改动</span><span data-l="en">Originals untouched</span></b><span data-l="zh">剪辑结果是新生成的文件，相册里的原视频保持原样。</span><span data-l="en">Edits produce new files; the video in your library stays as it was.</span></li>
+          <li class="muted-li"><span data-l="zh">联网可能用于：从 iCloud 或其他云端文件提供方下载素材、查询 App Store 价格、购买或恢复购买、使用系统分享，以及打开在线帮助。</span><span data-l="en">Network may be used for cloud file downloads, App Store prices, purchases or restores, system sharing, and online help.</span> <a href="https://ryanyuyuyuyu.github.io/CutCut-golf/privacy/"><span data-l="zh">阅读隐私政策 →</span><span data-l="en">Read the privacy policy →</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- HONEST -->
+    <section class="section honest" id="honest">
+      <div class="wrap">
+        <header class="sec-head">
+          <p class="eyebrow">06 · <span data-l="zh">说清楚</span><span data-l="en">Straight talk</span></p>
+          <h2><span data-l="zh">CutCut 不做什么。</span><span data-l="en">What CutCut doesn’t do.</span></h2>
+          <p class="sec-sub"><span data-l="zh">它帮你整理素材；动作对不对，交给你自己和教练判断。</span><span data-l="en">It organizes your footage. Judging the swing is up to you and your coach.</span></p>
+        </header>
+        <div class="nots">
+          <div class="not"><s><span data-l="zh">挥杆评分</span><span data-l="en">Swing scores</span></s></div>
+          <div class="not"><s><span data-l="zh">姿态 / 骨骼识别</span><span data-l="en">Pose tracking</span></s></div>
+          <div class="not"><s><span data-l="zh">球路、杆速、球速</span><span data-l="en">Ball flight &amp; speed</span></s></div>
+          <div class="not"><s><span data-l="zh">AI 教练</span><span data-l="en">AI coaching</span></s></div>
+        </div>
+        <div class="honest-notes">
+          <p><b><span data-l="zh">候选不等于正确挥杆。</span><span data-l="en">A candidate isn’t a verdict.</span></b> <span data-l="zh">旁边球位的击球声、说话声或风声都可能被标成候选，也可能漏掉很轻的击球。所以每一段都由你确认。</span><span data-l="en">Neighbouring bays, voices or wind can add candidates, and very soft strikes can be missed — which is why you confirm every clip.</span></p>
+          <p><b><span data-l="zh">需要原声。</span><span data-l="en">Original audio required.</span></b> <span data-l="zh">静音或已经配乐的视频，很可能找不到合适的候选。</span><span data-l="en">Muted videos or ones with music laid over them may not produce useful candidates.</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHO + TIPS -->
+    <section class="section who" id="who">
+      <div class="wrap">
+        <header class="sec-head">
+          <p class="eyebrow">07 · <span data-l="zh">适合谁</span><span data-l="en">Made for</span></p>
+          <h2><span data-l="zh">录得多的人，都用得上。</span><span data-l="en">Anyone who records a lot.</span></h2>
+        </header>
+        <div class="who-grid">
+          <article><span class="who-ic">⛳</span><h3><span data-l="zh">练习的球友</span><span data-l="en">Range regulars</span></h3><p><span data-l="zh">练完留下几杆想再看的，合并成一条。</span><span data-l="en">Keep the few swings worth rewatching in one clip.</span></p></article>
+          <article><span class="who-ic">✉︎</span><h3><span data-l="zh">上课的学员</span><span data-l="en">Students</span></h3><p><span data-l="zh">一杆一个文件，带着具体问题发给教练。</span><span data-l="en">One file per swing, sent with a specific question.</span></p></article>
+          <article><span class="who-ic">◎</span><h3><span data-l="zh">教练</span><span data-l="en">Coaches</span></h3><p><span data-l="zh">先把学员录像整理好，再用自己的方式讲解。</span><span data-l="en">Clean up student footage, then teach your way.</span></p></article>
+          <article><span class="who-ic">✦</span><h3><span data-l="zh">内容创作者</span><span data-l="en">Creators</span></h3><p><span data-l="zh">先挑出素材，再交给剪辑软件加字幕和配乐。</span><span data-l="en">Pull the shots, then add captions and music elsewhere.</span></p></article>
+        </div>
+
+        <div class="tips">
+          <h3><span data-l="zh">怎样拍，更好整理</span><span data-l="en">Shoot for better results</span></h3>
+          <ol>
+            <li><b><span data-l="zh">保留原声</span><span data-l="en">Keep the sound</span></b><span data-l="zh">候选定位靠击球声音。</span><span data-l="en">Candidates come from impact audio.</span></li>
+            <li><b><span data-l="zh">固定机位</span><span data-l="en">Fix the camera</span></b><span data-l="zh">稳定的画面更好审片。</span><span data-l="en">A steady frame is easier to review.</span></li>
+            <li><b><span data-l="zh">拍全动作</span><span data-l="en">Frame the full swing</span></b><span data-l="zh">身体、球杆、上杆和收杆都留在画面里。</span><span data-l="en">Body, club, backswing and finish.</span></li>
+            <li><b><span data-l="zh">先试短的</span><span data-l="en">Start short</span></b><span data-l="zh">用几分钟的素材找到适合你的灵敏度。</span><span data-l="en">Find your sensitivity on a few minutes first.</span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="section pricing" id="pricing">
+      <div class="wrap">
+        <header class="sec-head center">
+          <p class="eyebrow">08 · <span data-l="zh">价格</span><span data-l="en">Pricing</span></p>
+          <h2><span data-l="zh">先免费试，满意再买。</span><span data-l="en">Try it free. Buy it once.</span></h2>
+        </header>
+        <div class="plans">
+          <article class="plan">
+            <h3><span data-l="zh">免费体验</span><span data-l="en">Free</span></h3>
+            <div class="price">2 <small><span data-l="zh">个项目</span><span data-l="en">projects</span></small></div>
+            <ul>
+              <li><span data-l="zh">完整功能，免费完成两个项目的保存或分享</span><span data-l="en">Full features for two delivered projects</span></li>
+              <li><span data-l="zh">导入、分析、审片、裁剪、预览都不计次</span><span data-l="en">Import, analyze, review, trim and preview never count</span></li>
+              <li><span data-l="zh">一个项目分别导出多段，也只算一次</span><span data-l="en">Multiple clips from one project count once</span></li>
+              <li><span data-l="zh">保存失败或取消分享不计次</span><span data-l="en">Failed saves or cancelled shares don’t count</span></li>
+            </ul>
+          </article>
+          <article class="plan plan-pro">
+            <span class="badge"><span data-l="zh">无订阅</span><span data-l="en">No subscription</span></span>
+            <h3>CutCut Pro</h3>
+            <div class="price"><span data-l="zh">¥45</span><span data-l="en">US$9.99</span> <small><span data-l="zh">一次购买 · 永久解锁</span><span data-l="en">once · lifetime</span></small></div>
+            <ul>
+              <li><span data-l="zh">永久解锁本地核心剪辑功能</span><span data-l="en">Unlock the core on-device editing for good</span></li>
+              <li><span data-l="zh">没有月费，也没有年费</span><span data-l="en">No monthly or yearly fees</span></li>
+              <li><span data-l="zh">用同一 Apple 账号即可恢复购买</span><span data-l="en">Restore with the same Apple Account</span></li>
+            </ul>
+            <a class="btn btn-lime btn-block" href="https://apps.apple.com/app/id6807457043" target="_blank" rel="noopener"><span data-l="zh">在 App Store 下载</span><span data-l="en">Download on the App Store</span></a>
+          </article>
+        </div>
+        <p class="fine center"><span data-l="zh">价格为 2026 年 10 月 12 日中国大陆 App Store 页面显示价格；美国为 US$9.99。实际金额以应用内购买页面为准。</span><span data-l="en">Price shown on the US App Store as of Oct 12, 2026 (¥45 in mainland China). The in-app purchase page shows the final amount for your region.</span></p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section faq" id="faq">
+      <div class="wrap narrow">
+        <header class="sec-head">
+          <p class="eyebrow">09 · FAQ</p>
+          <h2><span data-l="zh">常见问题</span><span data-l="en">Questions</span></h2>
+        </header>
+        <details><summary><span data-l="zh">需要注册账号吗？</span><span data-l="en">Do I need an account?</span></summary><p><span data-l="zh">不需要 CutCut 账号。打开 App 可以先看示例引导，也可以直接导入自己的视频。</span><span data-l="en">No CutCut account is needed. Open the app, try the Quick Guide, or import your own video right away.</span></p></details>
+        <details><summary><span data-l="zh">可以一次处理多个视频吗？</span><span data-l="en">Can I process several videos at once?</span></summary><p><span data-l="zh">可以。一个项目支持 1–9 段视频，累计时长不超过 2 小时。</span><span data-l="en">Yes. A project holds 1–9 videos, up to 2 hours total.</span></p></details>
+        <details><summary><span data-l="zh">为什么找出了别人的击球？</span><span data-l="en">Why did it find someone else’s shot?</span></summary><p><span data-l="zh">定位依据是原始音频，附近球位的击球声也可能进入候选。可以降低灵敏度，审片时舍弃即可。</span><span data-l="en">Detection uses the original audio, so a neighbouring bay can create candidates. Lower the sensitivity and discard them during review.</span></p></details>
+        <details><summary><span data-l="zh">静音或配了乐的视频能用吗？</span><span data-l="en">Will muted or music-overlaid videos work?</span></summary><p><span data-l="zh">可以导入，但定位需要原始击球声音，这类素材可能找不到合适的候选。尽量用原片。</span><span data-l="en">They can be imported, but detection needs the original impact sound, so they may yield no useful candidates. Use the original recording.</span></p></details>
+        <details><summary><span data-l="zh">必须把所有候选都看完吗？</span><span data-l="en">Do I have to review every candidate?</span></summary><p><span data-l="zh">不需要。只要已经保留了片段，就可以继续生成；没审的候选不会自动加入。</span><span data-l="en">No. Once you’ve kept at least one clip you can continue; unreviewed candidates are left out.</span></p></details>
+        <details><summary><span data-l="zh">生成完了，相册里怎么找不到？</span><span data-l="en">I finalized — why isn’t it in Photos?</span></summary><p><span data-l="zh">生成后还要点「保存到相册」，并允许 CutCut 添加照片。内置教程里的保存只是演练，不会写入相册。</span><span data-l="en">After finalizing, tap Save to Photos and allow CutCut to add to your library. Saving in the Quick Guide is practice only.</span></p></details>
+        <details><summary><span data-l="zh">会改变我的原视频吗？</span><span data-l="en">Will it change my original video?</span></summary><p><span data-l="zh">不会。裁剪结果会生成新的文件。</span><span data-l="en">No. Trims produce new output files.</span></p></details>
+        <details><summary><span data-l="zh">能帮我诊断挥杆问题吗？</span><span data-l="en">Can it diagnose my swing?</span></summary><p><span data-l="zh">不能。CutCut 不做姿态诊断或动作评分，它帮你整理出值得回看的素材，具体技术问题建议结合教练的反馈。</span><span data-l="en">No. There’s no pose analysis or scoring. CutCut gets you the footage worth reviewing; your coach handles the technique.</span></p></details>
+        <details><summary><span data-l="zh">买过了却没有解锁？</span><span data-l="en">I bought Pro but it isn’t unlocked.</span></summary><p><span data-l="zh">保持联网，确认使用购买时的 Apple 账号，在首页皇冠入口选择恢复购买。仍有问题请联系我们。</span><span data-l="en">Stay online, make sure you’re on the Apple Account used to buy, then tap the crown on the home screen and choose Restore Purchase. Still stuck? Contact us.</span></p></details>
+        <p class="more"><a href="https://ryanyuyuyuyu.github.io/CutCut-golf/support/"><span data-l="zh">更多帮助 →</span><span data-l="en">More help →</span></a></p>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="download">
+      <div class="cta-ball" aria-hidden="true"><img src="assets/img/ball.jpg" alt="" loading="lazy" width="900" height="1071"></div>
+      <div class="wrap cta-inner">
+        <img class="cta-icon" src="assets/img/icon-256.jpg" alt="CutCut Golf" width="96" height="96" loading="lazy">
+        <h2><span data-l="zh">把时间留给练习。</span><span data-l="en">Spend the time swinging.</span></h2>
+        <p><span data-l="zh">在 App Store 搜索「CutCut Golf」，需要 iOS 17 或更高版本。</span><span data-l="en">Search “CutCut Golf” on the App Store. Requires iOS 17 or later.</span></p>
+        <a class="btn btn-store btn-store-lg" href="https://apps.apple.com/app/id6807457043" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.1-.8 1.5 0 1.9.8 3.2.8 1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8-.1 0-2.5-1-2.5-3.9zM14 5.5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.6 2.8-1.4z"/></svg>
+          <span class="store-text"><small><span data-l="zh">前往</span><span data-l="en">Download on the</span></small><b>App Store</b></span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div class="f-brand">
+        <img src="assets/img/icon-256.jpg" alt="" width="28" height="28" loading="lazy">
+        <div><b>CutCut Golf</b><small>Swing more. Edit less.</small></div>
+      </div>
+      <nav class="f-links" aria-label="Footer">
+        <a href="https://ryanyuyuyuyu.github.io/CutCut-golf/privacy/"><span data-l="zh">隐私政策</span><span data-l="en">Privacy</span></a>
+        <a href="https://ryanyuyuyuyu.github.io/CutCut-golf/support/"><span data-l="zh">使用支持</span><span data-l="en">Support</span></a>
+        <a href="mailto:ryan67373@163.com"><span data-l="zh">支持邮箱</span><span data-l="en">Support email</span></a>
+        <a href="mailto:ryansy@umich.edu"><span data-l="zh">合作</span><span data-l="en">Partnerships</span></a>
+        <a href="https://x.com/CutCut_Golf" target="_blank" rel="noopener">X</a>
+        <a href="https://github.com/Ryanyuyuyuyu/cutcut-golf" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+      <p class="f-fine">
+        <span data-l="zh">© 2026 CutCut Golf · 独立开发。首屏挥杆画面为 App 内置引导中的 AI 生成视频。Apple、iPhone 和 App Store 是 Apple Inc. 的商标。</span>
+        <span data-l="en">© 2026 CutCut Golf · Independently made. Hero swing footage is the AI-generated clip from the in-app guide. Apple, iPhone and App Store are trademarks of Apple Inc.</span>
+      </p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js" defer></script>
+</body>
 </html>
