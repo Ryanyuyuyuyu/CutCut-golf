@@ -254,7 +254,9 @@
       working: "本地生成中…",
       ready: "准备保存", readySubM: function (n) { return n + " 段已合并为一条视频，尚未保存到相册"; },
       readySubS: function (n) { return n + " 个独立视频，尚未保存到相册"; },
-      save: "保存到相册", saved: "✓ 已保存（演示）", savedTitle: "已保存（演示）", savedSub: "演示中没有写入任何文件"
+      save: "保存到相册", saved: "✓ 已保存（演示）", savedTitle: "已保存（演示）", savedSub: "演示中没有写入任何文件",
+      mediaLoading: "正在加载演示视频…", mediaError: "演示视频未能加载，请检查网络后重试。",
+      mediaBlocked: "演示视频已就绪，请点「播放视频」开始。", mediaRetry: "重试加载", mediaPlay: "播放视频"
     },
     en: {
       stage3: "Step 3 of 6 · Review Clips", stage4: "Step 4 of 6 · Preview Edit", stage6: "Step 6 of 6 · Save to Photos",
@@ -277,7 +279,9 @@
       working: "Exporting on-device…",
       ready: "Ready to Save", readySubM: function (n) { return n + " clip" + (n === 1 ? "" : "s") + " merged into one video. Not yet saved to Photos."; },
       readySubS: function (n) { return n + " separate video" + (n === 1 ? "" : "s") + ". Not yet saved to Photos."; },
-      save: "Save to Photos", saved: "✓ Saved (demo)", savedTitle: "Saved (demo)", savedSub: "Nothing was actually written in this demo"
+      save: "Save to Photos", saved: "✓ Saved (demo)", savedTitle: "Saved (demo)", savedSub: "Nothing was actually written in this demo",
+      mediaLoading: "Loading the demo video…", mediaError: "The demo video could not load. Check your connection and retry.",
+      mediaBlocked: "The demo video is ready. Tap Play video to start.", mediaRetry: "Retry loading", mediaPlay: "Play video"
     }
   };
   var t = function (k) { return T[lang()][k]; };
@@ -412,11 +416,124 @@
 
   /* playback */
   var loopRange = null; // {start, end}
+  // Load the small sample once as a Blob: static hosts may ignore HTTP Range.
+  // Keep only the latest playback intent while fetch/metadata are pending.
+  var mediaPromise = null, mediaReady = false, mediaURL = null, mediaStatus = "";
+  var mediaIntent = null, mediaEpoch = 0, playAttempt = 0, mediaController = null;
+  var mediaDisposed = false, simVisible = !("IntersectionObserver" in window);
+  function renderMediaNotice() {
+    $("#simMediaNotice").hidden = !mediaStatus;
+    $("#simMediaMessage").textContent = mediaStatus ? t(mediaStatus) : "";
+    var retry = $("#simMediaRetry");
+    retry.hidden = !mediaStatus || mediaStatus === "mediaLoading";
+    retry.textContent = t(mediaStatus === "mediaBlocked" ? "mediaPlay" : "mediaRetry");
+  }
+  function mediaNotice(status) { mediaStatus = status; renderMediaNotice(); }
+  function releaseMedia() {
+    mediaReady = false;
+    playAttempt++;
+    video.pause();
+    video.removeAttribute("src");
+    video.load();
+    if (mediaURL) { URL.revokeObjectURL(mediaURL); mediaURL = null; }
+  }
+  function requestMediaPlay() {
+    if (!mediaReady || !mediaIntent || !mediaIntent.play || !simVisible || dragging) return;
+    var intent = mediaIntent, attempt = ++playAttempt;
+    function failed(error) {
+      if (attempt !== playAttempt || intent !== mediaIntent || !simVisible || mediaDisposed) return;
+      if (error && error.name === "AbortError") return;
+      if (error && error.name === "NotAllowedError") mediaNotice("mediaBlocked");
+      else { releaseMedia(); mediaNotice("mediaError"); }
+    }
+    try {
+      var pr = video.play();
+      if (pr && pr.then) pr.then(function () {
+        if (attempt === playAttempt && intent === mediaIntent) mediaNotice("");
+      }, failed);
+      else mediaNotice("");
+    } catch (error) { failed(error); }
+  }
+  function applyMediaIntent() {
+    if (!mediaReady || !mediaIntent || mediaDisposed) return;
+    try { video.currentTime = mediaIntent.time; }
+    catch (error) { releaseMedia(); mediaNotice("mediaError"); return; }
+    if (mediaIntent.play && simVisible && !dragging) requestMediaPlay();
+    else video.pause();
+  }
+  function ensureMedia(retry) {
+    if (mediaReady || mediaPromise || mediaDisposed || (mediaStatus === "mediaError" && !retry)) return;
+    var epoch = ++mediaEpoch, controller = new AbortController();
+    mediaController = controller;
+    mediaNotice("mediaLoading");
+    var fetchTimer = setTimeout(function () { controller.abort(); }, 30000);
+    mediaPromise = fetch(video.getAttribute("data-src"), { signal: controller.signal }).then(function (response) {
+      if (!response.ok) throw new Error("Demo video HTTP " + response.status);
+      return response.blob();
+    }).then(function (blob) {
+      clearTimeout(fetchTimer);
+      if (epoch !== mediaEpoch || mediaDisposed) return;
+      if (!blob.size) throw new Error("Empty demo video");
+      mediaURL = URL.createObjectURL(blob);
+      return new Promise(function (resolve, reject) {
+        var metadataTimer;
+        function cleanup() {
+          clearTimeout(metadataTimer);
+          video.removeEventListener("loadedmetadata", ready);
+          video.removeEventListener("error", failed);
+        }
+        function ready() { cleanup(); resolve(); }
+        function failed() { cleanup(); reject(new Error("Demo video metadata unavailable")); }
+        video.addEventListener("loadedmetadata", ready);
+        video.addEventListener("error", failed);
+        metadataTimer = setTimeout(failed, 15000);
+        video.src = mediaURL;
+        video.load();
+        if (video.readyState >= 1) ready();
+      });
+    }).then(function () {
+      if (epoch !== mediaEpoch || mediaDisposed) return;
+      mediaPromise = null; mediaController = null; mediaReady = true;
+      mediaNotice("");
+      applyMediaIntent();
+    }).catch(function () {
+      clearTimeout(fetchTimer);
+      if (epoch !== mediaEpoch || mediaDisposed) return;
+      mediaPromise = null; mediaController = null;
+      releaseMedia(); mediaNotice("mediaError");
+    });
+  }
+  function seekMedia(time, play) {
+    mediaIntent = { time: time, play: play };
+    playAttempt++;
+    video.pause();
+    if (mediaReady) applyMediaIntent();
+    else ensureMedia();
+  }
+  function pauseMedia() {
+    if (mediaIntent) mediaIntent.play = false;
+    playAttempt++; video.pause();
+  }
+  $("#simMediaRetry").addEventListener("click", function () {
+    if (!mediaIntent) { playCurrent(); return; }
+    mediaIntent.play = true;
+    // Run play synchronously here to preserve Safari's user activation.
+    if (mediaReady) requestMediaPlay();
+    else ensureMedia(true);
+  });
+  video.addEventListener("error", function () {
+    if (mediaReady) { releaseMedia(); mediaNotice("mediaError"); }
+  });
+  window.addEventListener("pagehide", function (event) {
+    if (event.persisted) return;
+    mediaDisposed = true; mediaEpoch++;
+    if (mediaController) mediaController.abort();
+    releaseMedia();
+  });
+  langListeners.push(renderMediaNotice);
   function playRange(a, b) {
     loopRange = { start: a, end: b };
-    try { video.currentTime = a; } catch (e) {}
-    var pr = video.play();
-    if (pr && pr.catch) pr.catch(function () {});
+    seekMedia(a, true);
   }
   function playCurrent() { var c = S.c[S.cur]; S.playlist = null; playRange(c.start, c.end); }
   function tick() {
@@ -432,10 +549,10 @@
         S.pi++;
         if (S.pi < S.playlist.length) {
           loopRange = { start: S.playlist[S.pi].start, end: S.playlist[S.pi].end };
-          video.currentTime = loopRange.start;
-        } else { S.playlist = null; loopRange = null; video.pause(); }
+          seekMedia(loopRange.start, true);
+        } else { S.playlist = null; loopRange = null; pauseMedia(); }
       } else {
-        video.currentTime = loopRange.start;
+        seekMedia(loopRange.start, true);
       }
     }
     requestAnimationFrame(tick);
@@ -454,7 +571,7 @@
     if (dragging === "start") c.start = clamp(v, c.w0, round1(c.end - MIN_LEN));
     else c.end = clamp(v, round1(c.start + MIN_LEN), c.w1);
     layoutTrim();
-    try { video.currentTime = dragging === "start" ? c.start : Math.max(c.start, c.end - 0.05); } catch (e) {}
+    seekMedia(dragging === "start" ? c.start : Math.max(c.start, c.end - 0.05), false);
   }
   function edgeExtend() {
     if (!dragging) return;
@@ -471,7 +588,7 @@
     cancelReviewTimers();
     dragging = which;
     lastX = e.clientX;
-    video.pause();
+    pauseMedia();
     (which === "start" ? el.hs : el.he).classList.add("drag");
     try { e.target.setPointerCapture(e.pointerId); } catch (er) {}
     clearTimeout(edgeTimer);
@@ -508,6 +625,7 @@
       if (p[0] === "start") { c.w0 = Math.min(c.w0, Math.max(0, c.start + d)); c.start = clamp(round1(c.start + d), Math.max(0, c.w0), round1(c.end - MIN_LEN)); }
       else { c.w1 = Math.max(c.w1, Math.min(DUR, c.end + d)); c.end = clamp(round1(c.end + d), round1(c.start + MIN_LEN), Math.min(DUR, c.w1)); }
       layoutTrim();
+      seekMedia(p[0] === "start" ? c.start : Math.max(c.start, c.end - 0.05), false);
       clearTimeout(p[1]._k);
       p[1]._k = setTimeout(afterTrim, 450);
     });
@@ -622,8 +740,7 @@
     S.playlist = k.map(function (x) { return { start: x.start, end: x.end }; });
     S.pi = 0;
     loopRange = { start: S.playlist[0].start, end: S.playlist[0].end };
-    try { video.currentTime = loopRange.start; } catch (e) {}
-    var pr = video.play(); if (pr && pr.catch) pr.catch(function () {});
+    seekMedia(loopRange.start, true);
   }
   $("#bPlayResult").addEventListener("click", playResult);
   $("#bRestart").addEventListener("click", function () {
@@ -634,7 +751,12 @@
   $("#simSound").addEventListener("click", function () {
     video.muted = !video.muted;
     this.setAttribute("aria-pressed", video.muted ? "false" : "true");
-    if (video.paused) { var pr = video.play(); if (pr && pr.catch) pr.catch(function () {}); }
+    if (!mediaIntent || !loopRange) playCurrent();
+    else {
+      mediaIntent.play = true;
+      if (mediaReady) requestMediaPlay();
+      else ensureMedia();
+    }
   });
 
   // start playing only while the simulator is on screen
@@ -642,12 +764,16 @@
   if ("IntersectionObserver" in window) {
     new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
+        simVisible = e.isIntersecting;
         if (e.isIntersecting) {
-          if (!simStarted) { simStarted = true; video.preload = "auto"; playCurrent(); }
-          else if (loopRange) { var pr = video.play(); if (pr && pr.catch) pr.catch(function () {}); }
-        } else if (!video.paused) video.pause();
+          if (!simStarted) { simStarted = true; playCurrent(); }
+          else if (mediaIntent && mediaIntent.play) {
+            if (mediaReady) requestMediaPlay();
+            else ensureMedia();
+          }
+        } else { playAttempt++; video.pause(); }
       });
-    }, { threshold: 0.25 }).observe($(".sim-device"));
+    }, { threshold: 0.01 }).observe($(".sim-device"));
   }
 
   render();

@@ -161,9 +161,13 @@
               </div>
               <div class="sim-stage-label" id="simStageLabel"></div>
               <div class="sim-video">
-                <video id="simVideo" src="assets/video/practice.mp4" poster="assets/img/practice-poster.jpg" muted playsinline preload="metadata"></video>
+                <video id="simVideo" data-src="assets/video/practice.mp4" poster="assets/img/practice-poster.jpg" muted playsinline preload="none"></video>
                 <div class="sim-clock" id="simClock">00:00.0</div>
                 <span class="sim-ai"><span data-l="zh">AI 生成画面</span><span data-l="en">AI-generated</span></span>
+              </div>
+              <div class="fine" id="simMediaNotice" role="status" aria-live="polite" style="margin: 0 2px 12px" hidden>
+                <span id="simMediaMessage"></span>
+                <button class="link-btn" id="simMediaRetry" type="button" hidden></button>
               </div>
 
               <!-- review panel -->
